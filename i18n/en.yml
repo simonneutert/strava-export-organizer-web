@@ -1,0 +1,59 @@
+user:
+  edit: Edit user
+  name: User name is %1
+  count: !!pl
+    1: There is 1 user
+    n: There are %1 users
+sub_claim: Sorts, orders and renames!
+buttons:
+  download: Download
+  back: Back
+partials:
+  link_faq:
+    text: HERE IS WHAT YOU NEED TO KNOW
+    small: about this app/project.
+  summary:
+    title: In short
+    text: This app sorts your Strava export files by activities and orders them by years.
+  step_by_step:
+    title: How can I use this?
+    text: Follow these instructions to get started.
+    step1: Export your data from Strava
+    step2: Unzip the downloaded file
+    step3: Navigate inside the unzipped folder
+    step4: Inside the folder, zip/compress the <i>activities</i> folder AND<br/>the <i>activities.csv</i> file
+    step5: Name the freshly zipped file "activity_export_123456.zip",but<br/>for the number use your Strava ID, please
+    step6: This file is now ready for uploading it here 🥳
+    finish: Upload this newlly created file here, when the upload is finished, you will be redirected to your protected download link.
+pages:
+  faq:
+    title: Frequently Asked Questions (FAQ)
+    sub_claim: What YOU need to know!
+    tos: Terms of Service
+    privacy: Privacy Policy
+    question_files_safe: Are my files safe?
+    answer_files_safe: |
+      Yes, your files are as safe as reasonable! The uploaded files are stored on
+      the /tmp directory of the server for the time it takes to process them.
+      Your resulting zip-file with the sorted activities is stored for a maximum
+      of %1 minutes and has a 20 character long random hash string in its name. 
+      To protect it from "guessing" the filename.
+      When the shelf life of the file is over, it is deleted with the next request hitting the server. 🧹
+    question_why_free: Why is this service free?
+    answer_why_free: |
+      I developed this service for myself to stay organized.
+      And because it's basically only for that, I can share the code with others with a clear conscience.
+    question_language_missing: Can I help adding my language?
+    answer_language_missing: |
+      Yes, you can help! If you want to add your language, please fork the project on GitHub and add your language to the i18n folder.
+      Then create a pull request and I will review it as soon as possible. Thank you for your help! 🙏
+  download:
+    success: Succesfully uploaded and processed your strava export file!
+    self_destruct_hint: The file will be available for download for %1 minutes!
+    cta: Click the button below to download your sorted and renamed activities!
+  direct_upload:
+    language_select: Selecting the right language is super important. If you select the wrong language, the result will be all messed up. As strava export do differ for each language!
+    label_file_select: "2. Upload prepared strava zip file"
+    please_select: Please select
+    please_select_label: '1. Select exports language'
+tos_privacy_link: <strong>By using this service you agree to the <a href="/faq#tos">Terms of Service</a> and <a href="/faq#privacy">Privacy Policy</a></strong>

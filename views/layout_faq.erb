@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Strava Export Organizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Helps you organize the strava export data!" />
+    <meta charset="utf-8" />
+    <%= assets(:css) %>
+  </head>
+  <body>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-6 is-offset-3">
+          <h1 class="title">
+            Strava Export Organizer
+          </h1>
+          <h2 class="subtitle">
+            <%= t.sub_claim %>
+          </h2>
+          <a href="/"><%= t.buttons.back %></a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <section class="section is-medium">
+        <section class="hero is-link">
+          <div class="hero-body">
+            <p class="title">FAQ</p>
+            <p class="subtitle"><%= t.pages.faq.sub_claim %></p>
+          </div>
+        </section>
+        <div class="content">
+          <%= yield %>
+        </div>
+      </section>
+    </div>
+    <%= assets(:js) %>
+  </body>
+</html>

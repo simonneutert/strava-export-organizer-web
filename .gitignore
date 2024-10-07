@@ -1,0 +1,10 @@
+.env
+.envrc
+tmp/**/*
+*.swp
+.DS_Store
+log.log
+public/assets/**/*
+
+# go binary
+strava-export-organizer

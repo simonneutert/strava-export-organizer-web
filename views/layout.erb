@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Strava Export Organizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Helps you organize the strava export data!" />
+    <meta charset="utf-8" />
+    <%= assets(:css) %>
+  </head>
+  <body>
+    <div class="hero-body">
+      <div class="container">
+        <div class="column is-6 is-offset-3">
+          <h1 class="title">
+            Strava Export Organizer
+          </h1>
+          <h2 class="subtitle">
+            <%= t.sub_claim %>
+          </h2>
+          <% if @show_advertisement %>
+            <%= partial 'link_faq' %>
+            <hr/>
+            <%= partial 'summary' %>
+            <hr/>
+            <%= partial 'step_by_step' %>
+          <% end %>
+          <div class="box">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+      <% if @show_cta %>
+        <div class="container has-text-centered">
+          <div class="column is-6 is-offset-3">
+            <h2 class="subtitle">
+              This project is open source! 🚀<br>
+            </h2>
+            <h3>So, please understand that somebody is working on this in their free time! 🤗</h3>
+            <hr />
+            <p>
+              Something is not working?<br>
+              <br>
+              You do not need to know how to code,<br>
+              if you want your language to become supported!<br>
+            </p>
+            <hr />
+            <p>Want to contribute?<br>
+              Submit an issue?<br>
+              <h3>
+                <a href="https://github.com/simonneutert/strava-export-organizer">Project on GitHub</a></p>
+            </h3>
+            <hr />
+            <a href="/faq#imprint">Imprint / Impressum</a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= assets(:js) %>
+  </body>
+</html>

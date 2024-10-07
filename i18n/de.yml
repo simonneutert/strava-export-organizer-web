@@ -1,0 +1,59 @@
+user:
+  edit: Benutzer bearbeiten
+  name: Benutzername ist %1
+  count: !!pl
+    1: Es gibt 1 Benutzer
+    n: Es gibt %1 Benutzer
+sub_claim: Sortiert, ordnet und benennt um!
+buttons:
+  download: Download
+  back: Zurück
+partials:
+  link_faq:
+    text: HIER IST WAS DU WISSEN MUSST
+    small: über diese App/dieses Projekt.
+  summary:
+    title: Kurz erklärt
+    text: Diese App sortiert dir die Dateien deines Strava Exports nach Aktivitäten und ordnet sie dir nach Jahren.
+  step_by_step:
+    title: Wie kann ich diesen Service verwenden?
+    text: Befolge diese Anweisungen, um loszulegen.
+    step1: Exportiere deine Daten von Strava
+    step2: Entpacke die heruntergeladene Datei
+    step3: Navigiere in den entpackten Ordner
+    step4: Zippe/komprimiere innerhalb des Ordners den <i>activities</i> Ordner UND<br/>die <i>activities.csv</i> Datei
+    step5: Benenne die frisch gezippte Datei "activity_export_123456.zip", aber<br/>für die Nummer verwende bitte deine Strava ID
+    step6: Diese Datei ist jetzt bereit, um hier hochgeladen zu werden 🥳
+    finish: Lade diese neu erstellte Datei hier hoch, wenn der Upload abgeschlossen ist, wirst du zu deinem geschützten Download-Link weitergeleitet.
+pages:
+  faq:
+    title: Häufig gestellte Fragen (FAQ)
+    sub_claim: Was DU unbedingt wissen musst!
+    tos: Nutzungsbedingungen
+    privacy: Datenschutzerklärung
+    question_files_safe: Sind meine Daten sicher?
+    answer_files_safe: |
+      Ja, deine Daten sind so sicher wie vernünftig! Die hochgeladenen Dateien werden auf
+      dem /tmp Verzeichnis des Servers für die Zeit, die es dauert, sie zu verarbeiten, gespeichert.
+      Deine resultierende Zip-Datei mit den sortierten Aktivitäten wird für maximal
+      %1 Minuten gespeichert und hat einen 20 Zeichen langen zufälligen Hash-String in ihrem Namen.
+      Um sie vor "Raten" des Dateinamens zu schützen.
+      Wenn die Lebensdauer der Datei abgelaufen ist, wird sie mit der nächsten Anfrage, die den Server erreicht, gelöscht. 🧹
+    question_why_free: Warum ist dieser Service kostenlos?
+    answer_why_free: |
+      Ich habe diesen Service für mich selbst entwickelt, weil der Export so nicht nutzbar war.
+      Und weil es im Grunde nur dafür ist, kann ich ruhigen Gewissens den Code mit anderen teilen.
+    question_language_missing: Kann ich helfen, meine Sprache hinzuzufügen?
+    answer_language_missing: |
+      Ja, du kannst helfen! Wenn du deine Sprache hinzufügen möchtest, bitte forke das Projekt auf GitHub und füge deine Sprache zum i18n Ordner hinzu.
+      Dann erstelle einen Pull-Request und ich werde ihn so schnell wie möglich überprüfen. Danke für deine Hilfe! 🙏
+  download:
+    success: Erfolgreich deine Strava Export Datei hochgeladen und verarbeitet!
+    self_destruct_hint: Die Datei wird für %1 Minuten zum Download bereitstehen!
+    cta: Klicke auf den Button unten, um deine sortierten und umbenannten Aktivitäten herunterzuladen!
+  direct_upload:
+    language_select: Die richtige Sprache auszuwählen ist super wichtig. Wenn du die falsche Sprache auswählst, wird das Ergebnis total durcheinander sein. Da sich Strava Exporte für jede Sprache unterscheiden!
+    label_file_select: "2. Vorbereitete Strava Zip-Datei hochladen"
+    please_select: Bitte auswählen
+    please_select_label: '1. Sprache des Exports auswählen'
+tos_privacy_link: <strong>Indem du diesen Service nutzt, stimmst du den <a href="/faq#tos">Nutzungsbedingungen</a> und der <a href="/faq#privacy">Datenschutzerklärung</a> zu</strong>

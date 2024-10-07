@@ -1,0 +1,4 @@
+views/ linguist-vendored
+*.erb linguist-vendored
+*.yml linguist-vendored
+*.yaml linguist-vendored

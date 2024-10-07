@@ -1,0 +1,48 @@
+<div id="upload-form">
+  <% form({action: '/upload', method: :post, enctype: "multipart/form-data"}) do |f| %>
+    <%= f.input :select, id: "lang-select",
+                         name: :language,
+                         add_blank: t.pages.direct_upload.please_select,
+                         options: [ ['🇺🇸🇬🇧', 'en'], ['🇩🇪🇦🇹🇨🇭','de']],
+                         label: t.pages.direct_upload.please_select_label %>
+    <br />
+    <small><%= t.pages.direct_upload.language_select %></small>
+    <hr />
+    <% f.tag(:fieldset, id: 'file-select') do %>
+      <%= f.input :file,
+            name: :stravaexportzip,
+            label: t.pages.direct_upload.label_file_select %>
+    <% end %>
+    <div id="submit-button">
+      <hr/>
+      <%= t.tos_privacy_link %>
+      <hr/>
+      
+      <%= f.button(value: "Upload",id: "button-submit", class: "button is-primary") %>
+    </div>
+  <% end %>
+</div>
+<script>
+  document.getElementById('lang-select').addEventListener('change', function() {
+    const lang = this.value;
+      if (lang !== '' || lang !== undefined) {
+        var fileInput = document.querySelector('input[type="file"]');
+        fileInput.setAttribute('accept', '.zip');
+        var fileSelect = document.getElementById('file-select');
+        fileSelect.style.display = 'block';
+      }
+  });
+  document.getElementById('file-select').addEventListener('change', function() {
+    const submitButton = document.getElementById('submit-button');
+    submitButton.style.display = 'block';
+  });
+  document.getElementById('upload-form').addEventListener('submit', function() {
+    const lang = document.getElementById('lang-select').value;
+    if (lang === '' || lang === undefined) {
+      alert('Please select a language first!');
+      return false;
+    } else {
+      document.getElementById('button-submit').setAttribute('disabled', 'disabled');
+    }
+  });
+</script>

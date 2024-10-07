@@ -1,0 +1,14 @@
+<div id="download">
+  <p><%= t.pages.download.success %></p>
+  <h2><strong><%= t.pages.download.self_destruct_hint(@file_lifespan.to_s) %></strong></h2>
+  <hr />
+  <p><%= t.pages.download.cta %></p>
+  <hr />
+  <a href="<%= zipfile_url %>" class="button is-primary">
+    <%= t.buttons.download %>
+  </a>
+  <hr />
+  <a href="/">
+    <%= t.buttons.back %>
+  </a>
+</div>
