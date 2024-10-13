@@ -25,4 +25,6 @@ RUN rm -rf strava-export-organizer-bin
 COPY --from=builder /app/strava-export-organizer /app/strava-export-organizer
 
 EXPOSE 3000
+
+ENV RACK_ENV=production
 CMD ["bundle", "exec", "passenger", "start"]
