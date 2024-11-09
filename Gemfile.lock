@@ -43,7 +43,7 @@ GEM
     rainbow (3.1.1)
     rake (13.2.1)
     regexp_parser (2.9.2)
-    reline (0.5.10)
+    reline (0.5.11)
       io-console (~> 0.5)
     roda (3.85.0)
       rack
@@ -91,7 +91,7 @@ DEPENDENCIES
   pry (~> 0.14.2)
   rack-timeout (~> 0.7.0)
   rackup (~> 2.2)
-  reline (~> 0.5.10)
+  reline (~> 0.5.11)
   roda (~> 3.85)
   roda-i18n
   rubocop (~> 1.68)
