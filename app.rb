@@ -125,6 +125,8 @@ class App < Roda
         input_directory = "#{temppath_of_export}/export_mapped" # directory to be zipped
         zipfile_name = "tmp/stravaexport_done/export_#{random[0..20]}_mapped.zip" # zip-file name
         `rm #{zipfile_name}` || true # if file exists, delete it
+
+        # TODO: https://github.com/rubyzip/rubyzip/wiki/Updating-to-version-3.x#zipfile
         Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
           Dir.glob("#{input_directory}/**/*").select { |fn| legit_file?(fn) }.each do |file|
             zipfile.add(file.sub("#{input_directory}/", ''), file)
