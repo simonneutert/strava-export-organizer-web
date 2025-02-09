@@ -16,6 +16,8 @@ The reason being two things I wanted to learn and bring to use:
 
 ## Local Development
 
+Your OS needs to provide `find` ✌️ (the one you use with Docker,too)
+
 ### clone with submodules<!-- omit from toc -->
 
 ```bash
