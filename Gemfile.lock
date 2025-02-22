@@ -28,7 +28,7 @@ GEM
     parser (3.3.7.1)
       ast (~> 2.4.1)
       racc
-    passenger (6.0.25)
+    passenger (6.0.26)
       rack (>= 1.6.13)
       rackup (>= 2.0.0)
       rake (>= 12.3.3)
@@ -53,7 +53,7 @@ GEM
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.72.1)
+    rubocop (1.72.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
