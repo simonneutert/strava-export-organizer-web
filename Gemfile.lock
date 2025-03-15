@@ -46,14 +46,14 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
-    roda (3.89.0)
+    roda (3.90.0)
       rack
     roda-i18n (0.6.0)
       date
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.73.2)
+    rubocop (1.74.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -96,9 +96,9 @@ DEPENDENCIES
   rack-timeout (~> 0.7.0)
   rackup (~> 2.2)
   reline (~> 0.6.0)
-  roda (~> 3.89)
+  roda (~> 3.90)
   roda-i18n
-  rubocop (~> 1.73)
+  rubocop (~> 1.74)
   rubyzip (~> 2.4)
   sass-embedded (~> 1.85)
   tilt (~> 2.6)
