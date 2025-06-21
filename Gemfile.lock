@@ -54,7 +54,7 @@ GEM
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.76.1)
+    rubocop (1.77.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -62,7 +62,7 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.45.0, < 2.0)
+      rubocop-ast (>= 1.45.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.45.1)
@@ -100,7 +100,7 @@ DEPENDENCIES
   reline (~> 0.6.1)
   roda (~> 3.93)
   roda-i18n
-  rubocop (~> 1.76)
+  rubocop (~> 1.77)
   rubyzip (~> 2.4)
   sass-embedded (~> 1.89)
   tilt (~> 2.6)
