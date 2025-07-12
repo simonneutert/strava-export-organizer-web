@@ -54,7 +54,7 @@ GEM
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.77.0)
+    rubocop (1.78.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -77,7 +77,7 @@ GEM
       google-protobuf (~> 4.31)
     sass-embedded (1.89.2-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
-    tilt (2.6.0)
+    tilt (2.6.1)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -100,7 +100,7 @@ DEPENDENCIES
   reline (~> 0.6.1)
   roda (~> 3.93)
   roda-i18n
-  rubocop (~> 1.77)
+  rubocop (~> 1.78)
   rubyzip (~> 2.4)
   sass-embedded (~> 1.89)
   tilt (~> 2.6)
