@@ -1,4 +1,8 @@
 # Setup the `.env` file with the current architecture
+
+default:
+    @just --list
+
 init_env:
     echo "ARCH=$(uname -m)" >> .env
 
