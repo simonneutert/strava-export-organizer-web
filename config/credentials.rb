@@ -2,4 +2,4 @@
 
 require 'dotenv'
 
-Dotenv.load!
+Dotenv.load! if File.exist?('.env')

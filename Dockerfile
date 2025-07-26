@@ -1,30 +1,34 @@
-FROM golang:1 AS builder
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
-
 COPY strava-export-organizer-bin/ .
-
 RUN go build -o strava-export-organizer
 
-FROM phusion/passenger-ruby33
+FROM phusion/passenger-ruby34
 
 RUN apt-get update && apt-get install -y \
-  unzip
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  unzip \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /app
 
-COPY Gemfile /app/
-COPY Gemfile.lock /app/
+COPY Gemfile Gemfile.lock /app/
 RUN bundle install
 
-RUN mkdir -p tmp/stravaexport_done
+COPY app.rb config.ru /app/
+COPY assets/ /app/assets/
+COPY config/ /app/config/
+COPY i18n/ /app/i18n/
+COPY public/ /app/public/
+COPY views/ /app/views/
 
-ADD . .
-RUN rm -rf strava-export-organizer-bin
 COPY --from=builder /app/strava-export-organizer /app/strava-export-organizer
+RUN mkdir -p tmp/stravaexport_done
 
 EXPOSE 3000
 
+RUN useradd -m appuser && chown -R appuser:appuser /app
+
 ENV RACK_ENV=production
-CMD ["bundle", "exec", "passenger", "start"]
+CMD ["/sbin/setuser", "appuser", "bundle", "exec", "passenger", "start"]
