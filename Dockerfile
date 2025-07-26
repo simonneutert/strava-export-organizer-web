@@ -20,7 +20,7 @@ COPY app.rb config.ru /app/
 COPY assets/ /app/assets/
 COPY config/ /app/config/
 COPY i18n/ /app/i18n/
-COPY public/ /app/public/
+RUN mkdir -p /app/public/assets
 COPY views/ /app/views/
 
 COPY --from=builder /app/strava-export-organizer /app/strava-export-organizer
