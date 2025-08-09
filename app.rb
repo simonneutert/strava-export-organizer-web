@@ -128,7 +128,7 @@ class App < Roda
         `rm #{zipfile_name}` || true # if file exists, delete it
 
         # TODO: https://github.com/rubyzip/rubyzip/wiki/Updating-to-version-3.x#zipfile
-        Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        Zip::File.open(zipfile_name, create: true) do |zipfile|
           Dir.glob("#{input_directory}/**/*").select { |fn| legit_file?(fn) }.each do |file|
             zipfile.add(file.sub("#{input_directory}/", ''), file)
           end
