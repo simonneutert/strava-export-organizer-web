@@ -15,7 +15,6 @@ update_submodules:
 make:
     @echo "\n\nRun twice when in doubt ...\n\n"
     git submodule update --rebase --remote
-    cat strava-export-organizer-bin/.tool-versions | xargs -n 2 asdf local
-    asdf install
-    asdf reshim
+    cat strava-export-organizer-bin/.tool-versions | xargs -n 2 mise local
+    mise install
     cd strava-export-organizer-bin && go build -o ../strava-export-organizer
