@@ -45,7 +45,7 @@ GEM
       rack (>= 3)
     rainbow (3.1.1)
     rake (13.3.0)
-    regexp_parser (2.10.0)
+    regexp_parser (2.11.1)
     reline (0.6.2)
       io-console (~> 0.5)
     roda (3.94.0)
@@ -55,7 +55,7 @@ GEM
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.79.1)
+    rubocop (1.79.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -71,12 +71,12 @@ GEM
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
     rubyzip (2.4.1)
-    sass-embedded (1.89.2)
+    sass-embedded (1.90.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
-    sass-embedded (1.89.2-arm64-darwin)
+    sass-embedded (1.90.0-arm64-darwin)
       google-protobuf (~> 4.31)
-    sass-embedded (1.89.2-x86_64-linux-gnu)
+    sass-embedded (1.90.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     tilt (2.6.1)
     unicode-display_width (3.1.4)
@@ -104,7 +104,7 @@ DEPENDENCIES
   roda-i18n
   rubocop (~> 1.79)
   rubyzip (~> 2.4)
-  sass-embedded (~> 1.89)
+  sass-embedded (~> 1.90)
   tilt (~> 2.6)
 
 BUNDLED WITH
