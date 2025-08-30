@@ -9,13 +9,13 @@ GEM
     dotenv (3.1.8)
     forme (2.6.0)
       bigdecimal
-    google-protobuf (4.31.1)
+    google-protobuf (4.32.0)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-arm64-darwin)
+    google-protobuf (4.32.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-x86_64-linux-gnu)
+    google-protobuf (4.32.0-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     io-console (0.8.1)
@@ -55,7 +55,7 @@ GEM
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.80.0)
+    rubocop (1.80.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -71,12 +71,12 @@ GEM
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
     rubyzip (3.0.2)
-    sass-embedded (1.90.0)
+    sass-embedded (1.91.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
-    sass-embedded (1.90.0-arm64-darwin)
+    sass-embedded (1.91.0-arm64-darwin)
       google-protobuf (~> 4.31)
-    sass-embedded (1.90.0-x86_64-linux-gnu)
+    sass-embedded (1.91.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     tilt (2.6.1)
     unicode-display_width (3.1.5)
@@ -104,7 +104,7 @@ DEPENDENCIES
   roda-i18n
   rubocop (~> 1.80)
   rubyzip (~> 3.0)
-  sass-embedded (~> 1.90)
+  sass-embedded (~> 1.91)
   tilt (~> 2.6)
 
 BUNDLED WITH
