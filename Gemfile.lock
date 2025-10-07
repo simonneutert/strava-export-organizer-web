@@ -39,7 +39,7 @@ GEM
       method_source (~> 1.0)
     r18n-core (5.0.1)
     racc (1.8.1)
-    rack (3.2.1)
+    rack (3.2.2)
     rack-timeout (0.7.0)
     rackup (2.2.1)
       rack (>= 3)
