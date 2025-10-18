@@ -48,7 +48,7 @@ GEM
     regexp_parser (2.11.3)
     reline (0.6.2)
       io-console (~> 0.5)
-    roda (3.96.0)
+    roda (3.97.0)
       rack
     roda-i18n (0.6.0)
       date
@@ -70,7 +70,7 @@ GEM
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
-    rubyzip (3.1.1)
+    rubyzip (3.2.0)
     sass-embedded (1.93.2)
       google-protobuf (~> 4.31)
       rake (>= 13)
@@ -100,10 +100,10 @@ DEPENDENCIES
   rack-timeout (~> 0.7.0)
   rackup (~> 2.2)
   reline (~> 0.6.2)
-  roda (~> 3.96)
+  roda (~> 3.97)
   roda-i18n
   rubocop (~> 1.81)
-  rubyzip (~> 3.1)
+  rubyzip (~> 3.2)
   sass-embedded (~> 1.93)
   tilt (~> 2.6)
 
