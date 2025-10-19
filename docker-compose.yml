@@ -16,10 +16,7 @@ services:
     networks:
       - strava-network
     restart: unless-stopped
-    volumes:
-      # Optional: mount temp directory for easier cleanup
-      - ./tmp:/app/tmp
-
+  
   clamav:
     image: clamav/clamav-debian:stable
     environment:

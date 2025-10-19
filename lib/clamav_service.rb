@@ -4,13 +4,6 @@ require 'clamav/client'
 
 # Service class for ClamAV virus scanning
 class ClamAVService
-  # Define connection error if the gem doesn't provide one
-  unless defined?(ClamAV::ConnectionError)
-    module ClamAV
-      class ConnectionError < StandardError; end
-    end
-  end
-
   class << self
     def enabled?
       ENV['CLAMAV_ENABLED'] == 'true'
