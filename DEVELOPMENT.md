@@ -30,15 +30,58 @@ git clone <this-repo> --recurse-submodules
 asdf install
 just make
 bundle install
+# Optional: Set up ClamAV for testing virus scanning
+just dev_with_clamav
+just setup_clamav  # Test ClamAV setup
 bundle exec rackup
 ```
 
 ## Dockered Development
 
 ```bash
+# Basic development
 docker build -t strava-export-organizer-web-app .
 docker run -p 3000:3000 strava-export-organizer-web-app
+
+# Development with ClamAV (recommended)
+docker-compose up -d
 ```
+
+## ClamAV Integration
+
+The application includes optional ClamAV virus scanning:
+
+### Development Setup
+
+```bash
+# Start ClamAV daemon for development
+just dev_with_clamav
+
+# Test ClamAV setup
+just setup_clamav
+
+# Stop development ClamAV
+just stop_dev_clamav
+```
+
+### Production Setup
+
+```bash
+# Start production environment (includes ClamAV)
+just prod_up
+
+# View logs
+just prod_logs
+
+# Stop production environment
+just prod_down
+```
+
+### Environment Variables
+
+- `CLAMAV_ENABLED=true` - Enable virus scanning
+- `CLAMAV_HOST=localhost` - ClamAV daemon host
+- `CLAMAV_PORT=3310` - ClamAV daemon port
 
 ## Release a package to GHCR.io
 

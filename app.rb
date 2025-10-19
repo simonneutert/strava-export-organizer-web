@@ -12,9 +12,12 @@ require 'forme'
 require 'sass-embedded'
 require 'zip'
 require 'securerandom'
+require 'json'
+require 'fileutils'
 require 'pry' unless ENV['RACK_ENV'] == 'production'
 
 require_relative 'config/credentials'
+require_relative 'lib/clamav_service'
 
 CURRENT_DIR = File.dirname(__FILE__)
 
@@ -33,7 +36,7 @@ class FileNotFoundError < StandardError
 end
 
 # Main application class
-class App < Roda
+class App < Roda # rubocop:disable Metrics/ClassLength
   use Rack::Timeout, service_timeout: 600,
                      wait_timeout: false,
                      wait_overtime: false,
@@ -87,6 +90,27 @@ class App < Roda
       view 'faq', layout: 'layout_faq'
     end
 
+    r.on 'health' do
+      r.is do
+        health_status = {
+          status: 'ok',
+          timestamp: Time.now.iso8601,
+          clamav: {
+            enabled: ClamAVService.enabled?,
+            available: ClamAVService.ping
+          }
+        }
+
+        if ClamAVService.enabled? && !ClamAVService.ping
+          response.status = 503
+          health_status[:status] = 'degraded'
+        end
+
+        response['Content-Type'] = 'application/json'
+        health_status.to_json
+      end
+    end
+
     r.on 'download' do
       zipfile_name = "tmp/stravaexport_done/#{r.params['file']}"
 
@@ -114,18 +138,40 @@ class App < Roda
         strava_id = export_file[:filename].scan(/\d+/).first || (SecureRandom.rand * 10**8).to_i
         raise ArgumentError, 'Invalid Strava ID' if strava_id.nil? || strava_id.empty? || strava_id.length > 14
 
+        # Virus scan the uploaded file
+        scan_result = ClamAVService.scan_file(export_file[:tempfile].path)
+
+        unless scan_result[:success]
+          response.status = 503
+          return 'Upload temporarily unavailable'
+        end
+
+        unless scan_result[:clean]
+          response.status = 400
+          return "Security threat detected: #{scan_result[:message]}. Upload rejected."
+        end
+
         random = SecureRandom.hex
-        temppath_of_export = "tmp/stravaexport_#{random}/#{export_file[:filename].gsub('.zip', '')}"
-        `mkdir tmp/stravaexport_#{random}`
-        `mkdir tmp/stravaexport_#{random}/#{export_file[:filename].gsub('.zip', '')}`
-        `unzip #{export_file[:tempfile].path} -d #{temppath_of_export}`
-        `cp strava-export-organizer #{temppath_of_export}/strava-export-organizer`
-        `cd #{temppath_of_export} && ./strava-export-organizer #{language}`
+        # Use sanitized directory name instead of user-provided filename to prevent path traversal
+        safe_dir_name = "upload_#{strava_id}"
+        temppath_base = "tmp/stravaexport_#{random}"
+        temppath_of_export = "#{temppath_base}/#{safe_dir_name}"
+
+        FileUtils.mkdir_p(temppath_of_export)
+
+        # Use Ruby methods instead of shell commands for better security
+        unless system('unzip', '-q', export_file[:tempfile].path, '-d', temppath_of_export)
+          raise StandardError, 'Failed to unzip the uploaded file'
+        end
+
+        # Copy and execute the organizer with proper argument handling
+        FileUtils.cp('strava-export-organizer', "#{temppath_of_export}/strava-export-organizer")
+        Dir.chdir(temppath_of_export) { system('./strava-export-organizer', language) }
 
         FileUtils.mkdir_p('tmp/stravaexport_done') unless File.directory?('tmp/stravaexport_done')
         input_directory = "#{temppath_of_export}/export_mapped" # directory to be zipped
         zipfile_name = "tmp/stravaexport_done/export_#{random[0..20]}_mapped.zip" # zip-file name
-        `rm #{zipfile_name}` || true # if file exists, delete it
+        FileUtils.rm_f(zipfile_name) # Remove if exists, using FileUtils instead of shell command
 
         # TODO: https://github.com/rubyzip/rubyzip/wiki/Updating-to-version-3.x#zipfile
         Zip::File.open(zipfile_name, create: true) do |zipfile|
@@ -133,6 +179,8 @@ class App < Roda
             zipfile.add(file.sub("#{input_directory}/", ''), file)
           end
         end
+
+        # Skipping output file scan as input is already scanned and processing is safe.
       rescue StandardError => e
         p e
         response.status = 500
@@ -142,8 +190,10 @@ class App < Roda
         r.redirect("/download?file=#{zipfile_name.split('/').last}")
         'Success'
       ensure
-        `rm -rf tmp/stravaexport_#{random}`
-        `find /tmp -name 'RackMultipart.*' -type f -mmin +59 -delete > /dev/null`
+        FileUtils.rm_rf(temppath_base) if defined?(temppath_base) && temppath_base
+        # Clean up old Rack multipart files
+        system('find', '/tmp', '-name', 'RackMultipart.*', '-type', 'f', '-mmin', '+59', '-delete',
+               out: File::NULL, err: File::NULL)
       end
     end
   end

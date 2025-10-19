@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  app:
+    image: ghcr.io/simonneutert/strava-export-organizer-web:main
+    container_name: strava-export-organizer-web
+    ports:
+      - "3000:3000"
+    environment:
+      - RACK_ENV=production
+      - CLAMAV_HOST=clamav
+      - CLAMAV_PORT=3310
+      - CLAMAV_ENABLED=true
+    depends_on:
+      clamav:
+        condition: service_healthy
+    networks:
+      - strava-network
+    restart: unless-stopped
+    volumes:
+      # Optional: mount temp directory for easier cleanup
+      - ./tmp:/app/tmp
+
+  clamav:
+    image: clamav/clamav:stable
+    container_name: clamav-daemon
+    environment:
+      - CLAMAV_NO_CLAMD=false
+      - CLAMAV_NO_FRESHCLAMD=false
+      - CLAMAV_NO_MILTERD=true
+    volumes:
+      - clamav_db:/var/lib/clamav
+      - clamav_logs:/var/log/clamav
+    networks:
+      - strava-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "clamdscan", "--ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: ${CLAMAV_HEALTHCHECK_START_PERIOD:-180s}  # ClamAV needs time to download virus definitions; override with env var if needed
+
+volumes:
+  clamav_db:
+    driver: local
+  clamav_logs:
+    driver: local
+
+networks:
+  strava-network:
+    driver: bridge
