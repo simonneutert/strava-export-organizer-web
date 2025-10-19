@@ -3,7 +3,6 @@ version: '3.8'
 services:
   app:
     image: ghcr.io/simonneutert/strava-export-organizer-web:main
-    container_name: strava-export-organizer-web
     ports:
       - "3000:3000"
     environment:
@@ -23,7 +22,6 @@ services:
 
   clamav:
     image: clamav/clamav-debian:stable
-    container_name: clamav-daemon
     environment:
       - CLAMAV_NO_CLAMD=false
       - CLAMAV_NO_FRESHCLAMD=false

@@ -37,6 +37,9 @@ end
 
 # Main application class
 class App < Roda # rubocop:disable Metrics/ClassLength
+  # Ensure required directories exist at startup
+  FileUtils.mkdir_p('tmp/stravaexport_done')
+
   use Rack::Timeout, service_timeout: 600,
                      wait_timeout: false,
                      wait_overtime: false,
@@ -168,7 +171,6 @@ class App < Roda # rubocop:disable Metrics/ClassLength
         FileUtils.cp('strava-export-organizer', "#{temppath_of_export}/strava-export-organizer")
         Dir.chdir(temppath_of_export) { system('./strava-export-organizer', language) }
 
-        FileUtils.mkdir_p('tmp/stravaexport_done') unless File.directory?('tmp/stravaexport_done')
         input_directory = "#{temppath_of_export}/export_mapped" # directory to be zipped
         zipfile_name = "tmp/stravaexport_done/export_#{random[0..20]}_mapped.zip" # zip-file name
         FileUtils.rm_f(zipfile_name) # Remove if exists, using FileUtils instead of shell command
