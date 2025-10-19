@@ -51,6 +51,12 @@ This will start both the web application and ClamAV daemon. The application will
 - `CLAMAV_ENABLED=true` - Enable virus scanning (default: false in development)
 - `CLAMAV_HOST=clamav` - ClamAV daemon hostname (default: localhost)
 - `CLAMAV_PORT=3310` - ClamAV daemon port (default: 3310)
+- `LOG_LEVEL` - ClamAV logging verbosity (default: 1)
+  - `0` = DEBUG - Most verbose, all debug messages
+  - `1` = INFO - Informational messages (default)
+  - `2` = WARN - Warnings and above
+  - `3` = ERROR - Errors and above only
+  - `4` = FATAL - Only fatal errors
 
 #### Health Check
 

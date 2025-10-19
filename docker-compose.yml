@@ -10,6 +10,8 @@ services:
       - CLAMAV_HOST=clamav
       - CLAMAV_PORT=3310
       - CLAMAV_ENABLED=true
+      # LOG_LEVEL: 0=DEBUG, 1=INFO (default), 2=WARN, 3=ERROR, 4=FATAL
+      - LOG_LEVEL=1
     depends_on:
       clamav:
         condition: service_healthy

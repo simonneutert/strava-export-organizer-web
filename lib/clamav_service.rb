@@ -81,7 +81,8 @@ class ClamAVService
     def logger
       @logger ||= begin
         log = Logger.new($stdout)
-        log.level = Logger::INFO
+        # LOG_LEVEL: 0=DEBUG, 1=INFO (default), 2=WARN, 3=ERROR, 4=FATAL
+        log.level = ENV.fetch('LOG_LEVEL', '1').to_i
         log
       end
     end
