@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'clamav/client'
+require 'logger'
 
 # Service class for ClamAV virus scanning
 class ClamAVService
@@ -13,18 +14,24 @@ class ClamAVService
       return success_result('ClamAV disabled - file not scanned') unless enabled?
 
       begin
+        logger.info("ClamAV: Scanning file: #{file_path}")
         response = client.execute(ClamAV::Commands::ScanCommand.new(file_path)).first
+        logger.info("ClamAV: Response class: #{response.class.name}")
+        logger.info("ClamAV: Response virus_name: #{response.virus_name.inspect}")
 
-        if response.is_a?(ClamAV::VirusResponse)
+        if response.virus_name
+          logger.warn("ClamAV: Virus detected - #{response.virus_name}")
           infected_result(response.virus_name, file_path)
-        elsif response.is_a?(ClamAV::SuccessResponse)
-          success_result('File is clean')
         else
-          error_result('Unknown response type')
+          logger.info('ClamAV: File is clean')
+          success_result('File is clean')
         end
       rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
+        logger.error("ClamAV: Connection error - #{e.message}")
         connection_error_result(e.message)
       rescue StandardError => e
+        logger.error("ClamAV: Scan error - #{e.class.name}: #{e.message}")
+        logger.error("ClamAV: Backtrace - #{e.backtrace.first(5).join("\n")}")
         error_result(e.message)
       end
     end
@@ -33,18 +40,24 @@ class ClamAVService
       return success_result('ClamAV disabled - stream not scanned') unless enabled?
 
       begin
+        logger.info('ClamAV: Scanning stream')
         response = client.execute(ClamAV::Commands::InstreamCommand.new(io_stream))
+        logger.info("ClamAV: Response class: #{response.class.name}")
+        logger.info("ClamAV: Response virus_name: #{response.virus_name.inspect}")
 
-        if response.is_a?(ClamAV::VirusResponse)
+        if response.virus_name
+          logger.warn("ClamAV: Virus detected in stream - #{response.virus_name}")
           infected_result(response.virus_name, 'uploaded file')
-        elsif response.is_a?(ClamAV::SuccessResponse)
-          success_result('Stream is clean')
         else
-          error_result('Unknown response type')
+          logger.info('ClamAV: Stream is clean')
+          success_result('Stream is clean')
         end
       rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
+        logger.error("ClamAV: Connection error - #{e.message}")
         connection_error_result(e.message)
       rescue StandardError => e
+        logger.error("ClamAV: Scan error - #{e.class.name}: #{e.message}")
+        logger.error("ClamAV: Backtrace - #{e.backtrace.first(5).join("\n")}")
         error_result(e.message)
       end
     end
@@ -53,16 +66,25 @@ class ClamAVService
       return false unless enabled?
 
       begin
-        client.execute(ClamAV::Commands::PingCommand.new)
-      rescue StandardError
+        logger.info('ClamAV: Pinging daemon')
+        result = client.execute(ClamAV::Commands::PingCommand.new)
+        logger.info("ClamAV: Ping result: #{result}")
+        result
+      rescue StandardError => e
+        logger.error("ClamAV: Ping failed - #{e.message}")
         false
       end
     end
 
     private
 
+    def logger
+      @logger ||= Logger.new($stdout)
+    end
+
     def client
       @client ||= begin
+        logger.info("ClamAV: Initializing client - #{clamav_host}:#{clamav_port}")
         connection = ClamAV::Connection.new(
           socket: TCPSocket.new(clamav_host, clamav_port),
           wrapper: ClamAV::Wrappers::NewLineWrapper.new
