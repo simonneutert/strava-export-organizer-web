@@ -63,10 +63,7 @@ class ClamAVService
 
     def client
       Thread.current[:clamav_client] ||= ClamAV::Client.new(
-        socket: ClamAV::Connection.new(
-          socket: TCPSocket.new(clamav_host, clamav_port)
-        ),
-        wrapper: false
+        socket: TCPSocket.new(clamav_host, clamav_port)
       )
     end
 
