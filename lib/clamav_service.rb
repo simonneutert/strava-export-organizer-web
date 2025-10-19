@@ -4,13 +4,13 @@ require 'clamav/client'
 require 'logger'
 
 # Service class for ClamAV virus scanning
-class ClamAVService
+class ClamAVService # rubocop:disable Metrics/ClassLength
   class << self
     def enabled?
       ENV['CLAMAV_ENABLED'] == 'true'
     end
 
-    def scan_file(file_path) # rubocop:disable Metrics/MethodLength
+    def scan_file(file_path) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       return success_result('ClamAV disabled - file not scanned') unless enabled?
 
       begin
@@ -36,7 +36,7 @@ class ClamAVService
       end
     end
 
-    def scan_stream(io_stream) # rubocop:disable Metrics/MethodLength
+    def scan_stream(io_stream) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       return success_result('ClamAV disabled - stream not scanned') unless enabled?
 
       begin
