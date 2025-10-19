@@ -12,6 +12,7 @@ See the [Strava Export Organizer](https://github.com/simonneutert/strava-export-
 
 - Downloadable zip files have a shelf life of 5 minutes.
 - Downloadable zip file's filename contain a random 20 sign long string.
+- **🦠 Virus scanning with ClamAV** - All uploaded files are scanned for malware before processing
 - Run locally to be 100 % secure (using Docker). Read on for instructions.
 
 ## Technical Nutshell
@@ -33,6 +34,27 @@ docker run --rm -p 3000:3000 ghcr.io/simonneutert/strava-export-organizer-web:ma
 ```
 
 Then visit http://localhost:3000 in your browser of choice (it should be Firefox and you know this deep in your heart).
+
+### 🦠 Production with ClamAV Protection
+
+For production deployment with virus scanning enabled:
+
+```bash
+# Using Docker Compose (recommended for production)
+docker-compose up -d
+```
+
+This will start both the web application and ClamAV daemon. The application will automatically scan all uploaded files for malware.
+
+#### Environment Variables
+
+- `CLAMAV_ENABLED=true` - Enable virus scanning (default: false in development)
+- `CLAMAV_HOST=clamav` - ClamAV daemon hostname (default: localhost)
+- `CLAMAV_PORT=3310` - ClamAV daemon port (default: 3310)
+
+#### Health Check
+
+Monitor the application and ClamAV status at: `http://localhost:3000/health`
 
 ## Planned Features
 

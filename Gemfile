@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'base64', '~> 0.3.0'
 gem 'bigdecimal', '~> 3.2'
+gem 'clamav-client', '~> 3.2'
 gem 'dotenv', '~> 3.1'
 gem 'forme', '~> 2.7'
 gem 'logger', '~> 1.7'

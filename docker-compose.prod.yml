@@ -1,0 +1,64 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ".env"
+    environment:
+      - CLAMAV_HOST=clamav
+      - CLAMAV_PORT=3310
+      - CLAMAV_ENABLED=true
+    depends_on:
+      clamav:
+        condition: service_healthy
+    networks:
+      - web
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.stravaexo_website.entrypoints=web"
+      - "traefik.http.routers.stravaexo_website.rule=Host(`strava-export-organizer.trojanischeresel.de`)"
+      - "traefik.http.routers.stravaexo_website.middlewares=https_redirect"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.stravaexo_website_https.entrypoints=websecure"
+      - "traefik.http.routers.stravaexo_website_https.tls.certresolver=myhttpchallenge"
+      - "traefik.http.routers.stravaexo_website_https.rule=Host(`strava-export-organizer.trojanischeresel.de`)"
+      - "traefik.http.services.stravaexo_website.loadbalancer.server.port=3000"
+      # - "traefik.http.services.stravaexo_website.loadbalancer.server.port=443"
+    volumes:
+      # Optional: mount temp directory for easier cleanup
+      - ./tmp:/app/tmp
+
+  clamav:
+    image: clamav/clamav:stable
+    container_name: clamav-daemon-prod
+    restart: unless-stopped
+    environment:
+      - CLAMAV_NO_CLAMD=false
+      - CLAMAV_NO_FRESHCLAMD=false
+      - CLAMAV_NO_MILTERD=true
+    volumes:
+      - clamav_db:/var/lib/clamav
+      - clamav_logs:/var/log/clamav
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "clamdscan", "--ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: ${CLAMAV_HEALTHCHECK_START_PERIOD:-180s}  # ClamAV needs time to download virus definitions; override with env var if needed
+    labels:
+      - "traefik.enable=false"  # Don't expose ClamAV to the internet
+
+volumes:
+  clamav_db:
+    driver: local
+  clamav_logs:
+    driver: local
+
+networks:
+  web:
+    external: true

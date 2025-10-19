@@ -1,0 +1,21 @@
+# Ignore development files
+.env
+.envrc
+tmp/**/*
+*.swp
+.DS_Store
+log.log
+public/assets/**/*
+.git
+.gitignore
+README.md
+DEVELOPMENT.md
+
+# Test and development dependencies
+scripts/
+docker-compose.yml
+.env.example
+
+# Ruby/Bundle cache
+.bundle
+vendor/cache

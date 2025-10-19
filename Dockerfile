@@ -19,6 +19,7 @@ RUN bundle install
 COPY app.rb config.ru /app/
 COPY assets/ /app/assets/
 COPY config/ /app/config/
+COPY lib/ /app/lib/
 COPY i18n/ /app/i18n/
 RUN mkdir -p /app/public/assets
 COPY views/ /app/views/
