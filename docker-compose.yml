@@ -22,9 +22,8 @@ services:
       - ./tmp:/app/tmp
 
   clamav:
-    image: clamav/clamav:stable
+    image: clamav/clamav-debian:stable
     container_name: clamav-daemon
-    platform: linux/amd64
     environment:
       - CLAMAV_NO_CLAMD=false
       - CLAMAV_NO_FRESHCLAMD=false

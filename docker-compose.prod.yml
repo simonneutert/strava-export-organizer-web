@@ -32,8 +32,7 @@ services:
       - ./tmp:/app/tmp
 
   clamav:
-    image: clamav/clamav:stable
-    platform: linux/amd64
+    image: clamav/clamav-debian:stable
     container_name: clamav-daemon-prod
     restart: unless-stopped
     environment:
