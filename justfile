@@ -9,6 +9,13 @@ init_env:
 publish_ghcr:
     docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/simonneutert/strava-export-organizer-web:main --push .
 
+publish_ghcr_podman:
+    podman manifest rm ghcr.io/simonneutert/strava-export-organizer-web:main || true
+    podman manifest create ghcr.io/simonneutert/strava-export-organizer-web:main
+    podman buildx build --platform linux/amd64 --manifest ghcr.io/simonneutert/strava-export-organizer-web:main .
+    podman buildx build --platform linux/arm64 --manifest ghcr.io/simonneutert/strava-export-organizer-web:main .
+    podman manifest push ghcr.io/simonneutert/strava-export-organizer-web:main
+
 setup_clamav:
     @echo "🦠 Setting up ClamAV for development..."
     ruby scripts/setup_clamav.rb
