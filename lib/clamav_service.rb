@@ -4,6 +4,13 @@ require 'clamav/client'
 
 # Service class for ClamAV virus scanning
 class ClamAVService
+  # Define connection error if the gem doesn't provide one
+  unless defined?(ClamAV::ConnectionError)
+    module ClamAV
+      class ConnectionError < StandardError; end
+    end
+  end
+
   class << self
     def enabled?
       ENV['CLAMAV_ENABLED'] == 'true'
@@ -21,7 +28,7 @@ class ClamAVService
         else
           success_result('File is clean')
         end
-      rescue ClamAV::ConnectionError => e
+      rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
         connection_error_result(e.message)
       rescue StandardError => e
         error_result(e.message)
@@ -40,7 +47,7 @@ class ClamAVService
         else
           success_result('Stream is clean')
         end
-      rescue ClamAV::ConnectionError => e
+      rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
         connection_error_result(e.message)
       rescue StandardError => e
         error_result(e.message)
