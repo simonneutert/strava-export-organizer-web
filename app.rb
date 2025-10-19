@@ -143,6 +143,7 @@ class App < Roda # rubocop:disable Metrics/ClassLength
 
         # Virus scan the uploaded file
         scan_result = ClamAVService.scan_file(export_file[:tempfile].path)
+        puts scan_result.inspect
 
         unless scan_result[:success]
           response.status = 503
