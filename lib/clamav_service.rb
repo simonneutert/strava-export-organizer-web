@@ -79,7 +79,11 @@ class ClamAVService
     private
 
     def logger
-      @logger ||= Logger.new($stdout)
+      @logger ||= begin
+        log = Logger.new($stdout)
+        log.level = Logger::INFO
+        log
+      end
     end
 
     def client
