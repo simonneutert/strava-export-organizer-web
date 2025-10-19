@@ -13,13 +13,14 @@ class ClamAVService
       return success_result('ClamAV disabled - file not scanned') unless enabled?
 
       begin
-        client_instance = client
-        response = client_instance.execute(ClamAV::Commands::ScanCommand.new(file_path))
+        response = client.execute(ClamAV::Commands::ScanCommand.new(file_path)).first
 
-        if response.virus_name
+        if response.is_a?(ClamAV::VirusResponse)
           infected_result(response.virus_name, file_path)
-        else
+        elsif response.is_a?(ClamAV::SuccessResponse)
           success_result('File is clean')
+        else
+          error_result('Unknown response type')
         end
       rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
         connection_error_result(e.message)
@@ -32,13 +33,14 @@ class ClamAVService
       return success_result('ClamAV disabled - stream not scanned') unless enabled?
 
       begin
-        client_instance = client
-        response = client_instance.execute(ClamAV::Commands::InstreamCommand.new(io_stream))
+        response = client.execute(ClamAV::Commands::InstreamCommand.new(io_stream))
 
-        if response.virus_name
+        if response.is_a?(ClamAV::VirusResponse)
           infected_result(response.virus_name, 'uploaded file')
-        else
+        elsif response.is_a?(ClamAV::SuccessResponse)
           success_result('Stream is clean')
+        else
+          error_result('Unknown response type')
         end
       rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
         connection_error_result(e.message)
@@ -51,9 +53,7 @@ class ClamAVService
       return false unless enabled?
 
       begin
-        client_instance = client
-        response = client_instance.execute(ClamAV::Commands::PingCommand.new)
-        response.success?
+        client.execute(ClamAV::Commands::PingCommand.new)
       rescue StandardError
         false
       end
@@ -62,9 +62,13 @@ class ClamAVService
     private
 
     def client
-      Thread.current[:clamav_client] ||= ClamAV::Client.new(
-        socket: TCPSocket.new(clamav_host, clamav_port)
-      )
+      @client ||= begin
+        connection = ClamAV::Connection.new(
+          socket: TCPSocket.new(clamav_host, clamav_port),
+          wrapper: ClamAV::Wrappers::NewLineWrapper.new
+        )
+        ClamAV::Client.new(connection)
+      end
     end
 
     def clamav_host
