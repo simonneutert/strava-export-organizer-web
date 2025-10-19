@@ -35,7 +35,7 @@ services:
       - strava-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "clamdscan", "--ping"]
+      test: ["CMD-SHELL", "nc -z localhost 3310 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
