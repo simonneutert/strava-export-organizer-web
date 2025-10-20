@@ -19,6 +19,8 @@ require 'pry' unless ENV['RACK_ENV'] == 'production'
 require_relative 'config/credentials'
 require_relative 'lib/clamav_service'
 
+PRODUCTION_ENABLED = ENV['RACK_ENV'] == 'production'
+
 CURRENT_DIR = File.dirname(__FILE__)
 
 def legit_file?(filename)
@@ -49,7 +51,13 @@ class App < Roda # rubocop:disable Metrics/ClassLength
   plugin :public
   plugin :route_csrf, check_header: true
   plugin :sessions, secret: 'some_nice_long_random_stringsome_nice_long_random_stringsome_nice_long_random_string'
-  plugin :common_logger, Logger.new('log.log'), method: :debug
+
+  plugin :common_logger,
+         Logger.new('log.log', 10, 1_024_000),
+         method: PRODUCTION_ENABLED ? :warn : :debug
+  # plugin :common_logger,
+  #        PRODUCTION_ENABLED ? Logger.new($stdout) : Logger.new('log.log', 10, 1_024_000),
+  #        method: PRODUCTION_ENABLED ? :warn : :debug
 
   plugin :error_handler do |e|
     if e.is_a?(FileNotFoundError)
