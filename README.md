@@ -46,6 +46,8 @@ docker-compose up -d
 
 This will start both the web application and ClamAV daemon. The application will automatically scan all uploaded files for malware.
 
+**Important:** ClamAV is accessed exclusively via TCP port 3310. The application uses the INSTREAM command to send file contents over the network connection, as ClamAV runs in Docker/Podman without direct file system access.
+
 #### Environment Variables
 
 - `CLAMAV_ENABLED=true` - Enable virus scanning (default: false in development)

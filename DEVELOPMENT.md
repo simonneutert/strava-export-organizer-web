@@ -51,6 +51,8 @@ docker-compose up -d
 
 The application includes optional ClamAV virus scanning:
 
+**Important:** ClamAV is accessed exclusively via TCP port 3310. The application uses the INSTREAM command to send file contents over the network connection, as ClamAV runs in Docker/Podman without direct file system access.
+
 ### Development Setup
 
 ```bash
