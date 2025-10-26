@@ -14,17 +14,20 @@ class ClamAVService # rubocop:disable Metrics/ClassLength
       return success_result('ClamAV disabled - file not scanned') unless enabled?
 
       begin
-        logger.info("ClamAV: Scanning file: #{file_path}")
-        response = client.execute(ClamAV::Commands::ScanCommand.new(file_path)).first
-        logger.info("ClamAV: Response class: #{response.class.name}")
-        logger.info("ClamAV: Response virus_name: #{response.virus_name.inspect}")
+        logger.info("ClamAV: Scanning file via TCP stream: #{file_path}")
+        # Use INSTREAM command since ClamAV runs in Docker without file access
+        File.open(file_path, 'rb') do |file|
+          response = client.execute(ClamAV::Commands::InstreamCommand.new(file))
+          logger.info("ClamAV: Response class: #{response.class.name}")
+          logger.info("ClamAV: Response virus_name: #{response.virus_name.inspect}")
 
-        if response.virus_name
-          logger.warn("ClamAV: Virus detected - #{response.virus_name}")
-          infected_result(response.virus_name, file_path)
-        else
-          logger.info('ClamAV: File is clean')
-          success_result('File is clean')
+          if response.virus_name
+            logger.warn("ClamAV: Virus detected - #{response.virus_name}")
+            infected_result(response.virus_name, file_path)
+          else
+            logger.info('ClamAV: File is clean')
+            success_result('File is clean')
+          end
         end
       rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ETIMEDOUT, SocketError => e
         logger.error("ClamAV: Connection error - #{e.message}")
