@@ -6,5 +6,7 @@ tmp/**/*
 log.log
 public/assets/**/*
 
+passenger.*
+
 # go binary
 strava-export-organizer
