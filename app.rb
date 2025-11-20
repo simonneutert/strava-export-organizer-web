@@ -61,9 +61,9 @@ class App < Roda # rubocop:disable Metrics/ClassLength
 
   plugin :error_handler do |e|
     if e.is_a?(FileNotFoundError)
-      'Oh No! File not found! ☠️'
+      'Oh No! File not found!'
     else
-      'Oh No! ☠️'
+      'Oh No!'
     end
   end
 
@@ -181,8 +181,8 @@ class App < Roda # rubocop:disable Metrics/ClassLength
               entry_path = File.join(temppath_of_export, entry.name)
 
               # Prevent path traversal attacks
-              expanded_base = File.expand_path(temppath_of_export)
               expanded_entry = File.expand_path(entry_path)
+              expanded_base = File.expand_path(temppath_of_export)
               unless expanded_entry.start_with?(expanded_base + File::SEPARATOR) || expanded_entry == expanded_base
                 raise StandardError, 'Archive contains invalid file paths'
               end
@@ -194,40 +194,46 @@ class App < Roda # rubocop:disable Metrics/ClassLength
                 entry.extract(entry_path)
               end
             end
-          rescue Zip::Error => e
-            FileUtils.rm_f(export_file[:tempfile].path)
-            raise StandardError, "Failed to extract archive: #{e.message}"
           end
+        rescue Zip::Error => e
+          FileUtils.rm_f(export_file[:tempfile].path)
+          FileUtils.rm_rf(temppath_of_export)
+          raise StandardError, "Failed to extract archive: #{e.message}"
+        end
 
-          # Copy and execute the organizer with proper argument handling
-          FileUtils.cp('strava-export-organizer', "#{temppath_of_export}/strava-export-organizer")
-          Dir.chdir(temppath_of_export) { system('./strava-export-organizer', language) }
+        # Copy and execute the organizer with proper argument handling
+        FileUtils.cp('strava-export-organizer', "#{temppath_of_export}/strava-export-organizer")
+        Dir.chdir(temppath_of_export) { system('./strava-export-organizer', language) }
 
-          input_directory = "#{temppath_of_export}/export_mapped" # directory to be zipped
-          zipfile_name = "tmp/stravaexport_done/export_#{random[0..20]}_mapped.zip" # zip-file name
-          FileUtils.rm_f(zipfile_name) # Remove if exists, using FileUtils instead of shell command
+        input_directory = "#{temppath_of_export}/export_mapped" # directory to be zipped
+        zipfile_name = "tmp/stravaexport_done/export_#{random[0..20]}_mapped.zip" # zip-file name
+        FileUtils.rm_f(zipfile_name) # Remove if exists, using FileUtils instead of shell command
 
-          # TODO: https://github.com/rubyzip/rubyzip/wiki/Updating-to-version-3.x#zipfile
-          Zip::File.open(zipfile_name, create: true) do |zipfile|
-            Dir.glob("#{input_directory}/**/*").select { |fn| legit_file?(fn) }.each do |file|
-              zipfile.add(file.sub("#{input_directory}/", ''), file)
-            end
+        # TODO: https://github.com/rubyzip/rubyzip/wiki/Updating-to-version-3.x#zipfile
+        Zip::File.open(zipfile_name, create: true) do |zipfile|
+          Dir.glob("#{input_directory}/**/*").select { |fn| legit_file?(fn) }.each do |file|
+            zipfile.add(file.sub("#{input_directory}/", ''), file)
           end
+        end
 
-          # Skipping output file scan as input is already scanned and processing is safe.
-        rescue StandardError => e
-          p e
-          response.status = 500
-          return 'Error, the uploaded file is not a valid Strava export file'
-        else
-          response.status = 201
-          r.redirect("/download?file=#{zipfile_name.split('/').last}")
-          'Success'
-        ensure
-          FileUtils.rm_rf(temppath_base) if defined?(temppath_base) && temppath_base
-          # Clean up old Rack multipart files
-          system('find', '/tmp', '-name', 'RackMultipart.*', '-type', 'f', '-mmin', '+59', '-delete',
-                 out: File::NULL, err: File::NULL)
+      # Skipping output file scan as input is already scanned and processing is safe.
+      rescue StandardError => e
+        p e
+        response.status = 500
+        return 'Error, the uploaded file is not a valid Strava export file'
+      else
+        response.status = 201
+        r.redirect("/download?file=#{zipfile_name.split('/').last}")
+        'Success'
+      ensure
+        FileUtils.rm_rf(temppath_base) if defined?(temppath_base) && temppath_base
+        # Clean up old Rack multipart files
+        begin
+          Dir.glob('/tmp/RackMultipart.*').each do |file|
+            File.delete(file) if File.file?(file) && (Time.now - File.mtime(file)) > 59 * 60
+          end
+        rescue Errno::ENOENT
+          # File already deleted, ignore
         end
       end
     end
