@@ -10,3 +10,4 @@ passenger.*
 
 # go binary
 strava-export-organizer
+passenger.*
