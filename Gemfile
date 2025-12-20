@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'base64', '~> 0.3.0'
-gem 'bigdecimal', '~> 3.2'
+gem 'bigdecimal', '~> 4.0'
 gem 'clamav-client', '~> 3.2'
 gem 'dotenv', '~> 3.2'
 gem 'forme', '~> 2.7'
