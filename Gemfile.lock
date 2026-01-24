@@ -10,13 +10,13 @@ GEM
     dotenv (3.2.0)
     forme (2.7.0)
       bigdecimal
-    google-protobuf (4.33.3)
+    google-protobuf (4.33.4)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.3-arm64-darwin)
+    google-protobuf (4.33.4-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.3-x86_64-linux-gnu)
+    google-protobuf (4.33.4-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     io-console (0.8.1)
@@ -73,12 +73,12 @@ GEM
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
     rubyzip (3.2.2)
-    sass-embedded (1.97.2)
+    sass-embedded (1.97.3)
       google-protobuf (~> 4.31)
       rake (>= 13)
-    sass-embedded (1.97.2-arm64-darwin)
+    sass-embedded (1.97.3-arm64-darwin)
       google-protobuf (~> 4.31)
-    sass-embedded (1.97.2-x86_64-linux-gnu)
+    sass-embedded (1.97.3-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     tilt (2.7.0)
     unicode-display_width (3.2.0)
