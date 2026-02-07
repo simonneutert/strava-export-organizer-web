@@ -20,7 +20,7 @@ GEM
       bigdecimal
       rake (>= 13)
     io-console (0.8.1)
-    json (2.18.0)
+    json (2.18.1)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -58,7 +58,7 @@ GEM
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.84.0)
+    rubocop (1.84.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
