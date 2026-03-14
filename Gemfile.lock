@@ -12,15 +12,15 @@ GEM
     dotenv (3.2.0)
     forme (2.7.0)
       bigdecimal
-    google-protobuf (4.33.4)
+    google-protobuf (4.34.0)
       bigdecimal
-      rake (>= 13)
-    google-protobuf (4.33.4-arm64-darwin)
+      rake (~> 13.3)
+    google-protobuf (4.34.0-arm64-darwin)
       bigdecimal
-      rake (>= 13)
-    google-protobuf (4.33.4-x86_64-linux-gnu)
+      rake (~> 13.3)
+    google-protobuf (4.34.0-x86_64-linux-gnu)
       bigdecimal
-      rake (>= 13)
+      rake (~> 13.3)
     io-console (0.8.1)
     json (2.19.0)
     json-schema (6.2.0)
@@ -59,7 +59,7 @@ GEM
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
-    roda (3.101.0)
+    roda (3.102.0)
       rack
     roda-i18n (0.6.0)
       date
@@ -83,12 +83,12 @@ GEM
       prism (~> 1.7)
     ruby-progressbar (1.13.0)
     rubyzip (3.2.2)
-    sass-embedded (1.97.3)
+    sass-embedded (1.98.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
-    sass-embedded (1.97.3-arm64-darwin)
+    sass-embedded (1.98.0-arm64-darwin)
       google-protobuf (~> 4.31)
-    sass-embedded (1.97.3-x86_64-linux-gnu)
+    sass-embedded (1.98.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     tilt (2.7.0)
     unicode-display_width (3.2.0)
@@ -113,11 +113,11 @@ DEPENDENCIES
   rack-timeout (~> 0.7.0)
   rackup (~> 2.3)
   reline (~> 0.6.3)
-  roda (~> 3.101)
+  roda (~> 3.102)
   roda-i18n
   rubocop (~> 1.85)
   rubyzip (~> 3.2)
-  sass-embedded (~> 1.97)
+  sass-embedded (~> 1.98)
   tilt (~> 2.7)
 
 BUNDLED WITH
