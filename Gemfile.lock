@@ -73,7 +73,7 @@ GEM
       parser (>= 3.3.7.2)
       prism (~> 1.7)
     ruby-progressbar (1.13.0)
-    rubyzip (3.2.2)
+    rubyzip (3.3.0)
     sass-embedded (1.99.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
@@ -107,7 +107,7 @@ DEPENDENCIES
   roda (~> 3.103)
   roda-i18n
   rubocop (~> 1.86)
-  rubyzip (~> 3.2)
+  rubyzip (~> 3.3)
   sass-embedded (~> 1.99)
   tilt (~> 2.7)
 
