@@ -20,13 +20,13 @@ GEM
       bigdecimal
       rake (~> 13.3)
     io-console (0.8.1)
-    json (2.19.3)
+    json (2.19.5)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
     method_source (1.1.0)
     ostruct (0.6.3)
-    parallel (2.0.1)
+    parallel (2.1.0)
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
@@ -51,14 +51,14 @@ GEM
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
-    roda (3.103.0)
+    roda (3.104.0)
       rack
     roda-i18n (0.6.0)
       date
       r18n-core (~> 5)
       roda (~> 3.8)
       tilt
-    rubocop (1.86.1)
+    rubocop (1.86.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -104,7 +104,7 @@ DEPENDENCIES
   rack-timeout (~> 0.7.0)
   rackup (~> 2.3)
   reline (~> 0.6.3)
-  roda (~> 3.103)
+  roda (~> 3.104)
   roda-i18n
   rubocop (~> 1.86)
   rubyzip (~> 3.3)
