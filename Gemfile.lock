@@ -30,7 +30,7 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
-    passenger (6.1.5)
+    passenger (6.1.6)
       logger (>= 1.7.0)
       rack (>= 1.6.13)
       rackup (>= 1.0.1)
@@ -73,7 +73,7 @@ GEM
       parser (>= 3.3.7.2)
       prism (~> 1.7)
     ruby-progressbar (1.13.0)
-    rubyzip (3.4.0)
+    rubyzip (3.4.1)
     sass-embedded (1.101.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
