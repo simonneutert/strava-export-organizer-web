@@ -51,7 +51,7 @@ GEM
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
-    roda (3.105.0)
+    roda (3.106.0)
       rack
     roda-i18n (0.6.0)
       date
@@ -104,7 +104,7 @@ DEPENDENCIES
   rack-timeout (~> 0.7.0)
   rackup (~> 2.3)
   reline (~> 0.6.3)
-  roda (~> 3.105)
+  roda (~> 3.106)
   roda-i18n
   rubocop (~> 1.88)
   rubyzip (~> 3.4)
