@@ -19,10 +19,6 @@ See the [Strava Export Organizer](https://github.com/simonneutert/strava-export-
 
 This repo uses [Strava Export Organizer](https://github.com/simonneutert/strava-export-organizer) as a submodule. Make sure to clone with submodules. And update the submodule to the latest version (regularly).
 
-## Hosted version
-
-https://strava-export-organizer.trojanischeresel.de
-
 ### But ... ⭐️ why not run this project locally (with [Docker](https://www.docker.com))?
 
 The server that hosts the app is a silicon potato. But the much greater benefits of using docker: nothing is sent over the wire and it will feel super duper fast.
