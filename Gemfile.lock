@@ -30,7 +30,7 @@ GEM
     parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
-    passenger (6.1.8)
+    passenger (6.2.0)
       logger (>= 1.7.0)
       rack (>= 1.6.13)
       rackup (>= 1.0.1)
@@ -42,7 +42,7 @@ GEM
       reline (>= 0.6.0)
     r18n-core (5.0.1)
     racc (1.8.1)
-    rack (3.2.6)
+    rack (3.2.7)
     rack-timeout (0.7.0)
     rackup (2.3.1)
       rack (>= 3)
@@ -51,7 +51,7 @@ GEM
     regexp_parser (2.12.0)
     reline (0.7.0)
       io-console (~> 0.5)
-    roda (3.106.0)
+    roda (3.107.0)
       rack
     roda-i18n (0.6.0)
       date
@@ -73,7 +73,7 @@ GEM
       parser (>= 3.3.7.2)
       prism (~> 1.7)
     ruby-progressbar (1.13.0)
-    rubyzip (3.4.1)
+    rubyzip (3.5.0)
     sass-embedded (1.102.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
@@ -81,7 +81,7 @@ GEM
       google-protobuf (~> 4.31)
     sass-embedded (1.102.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
-    tilt (2.8.0)
+    tilt (2.9.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
@@ -99,17 +99,17 @@ DEPENDENCIES
   forme (~> 2.7)
   logger (~> 1.7)
   ostruct (~> 0.6.3)
-  passenger (~> 6.1)
+  passenger (~> 6.2)
   pry (~> 0.16.0)
   rack-timeout (~> 0.7.0)
   rackup (~> 2.3)
   reline (~> 0.7.0)
-  roda (~> 3.106)
+  roda (~> 3.107)
   roda-i18n
   rubocop (~> 1.89)
-  rubyzip (~> 3.4)
+  rubyzip (~> 3.5)
   sass-embedded (~> 1.102)
-  tilt (~> 2.8)
+  tilt (~> 2.9)
 
 BUNDLED WITH
    2.7.2
