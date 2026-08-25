@@ -1,10 +1,10 @@
-FROM golang:1.24-alpine AS builder
+FROM golang:1.27-alpine AS builder
 
 WORKDIR /app
 COPY strava-export-organizer-bin/ .
 RUN go build -o strava-export-organizer
 
-FROM phusion/passenger-ruby34
+FROM phusion/passenger-ruby4
 
 RUN apt-get update && apt-get install -y \
   unzip \
