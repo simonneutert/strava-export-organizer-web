@@ -4,7 +4,7 @@ WORKDIR /app
 COPY strava-export-organizer-bin/ .
 RUN go build -o strava-export-organizer
 
-FROM phusion/passenger-ruby4
+FROM phusion/passenger-ruby40
 
 RUN apt-get update && apt-get install -y \
   unzip \
