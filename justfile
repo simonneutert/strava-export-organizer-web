@@ -44,6 +44,9 @@ prod_logs:
 update_submodules:
   git submodule update --rebase --remote
 
+init_submodules:
+    git submodule update --init --recursive
+
 make:
     @echo "\n\nRun twice when in doubt ...\n\n"
     git submodule update --rebase --remote
