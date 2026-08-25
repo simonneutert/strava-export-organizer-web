@@ -1,4 +1,4 @@
 [tools]
 go = "latest"
 just = "latest"
-ruby = "3.4"
+ruby = "4"
